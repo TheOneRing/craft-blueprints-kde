@@ -30,6 +30,7 @@ import CraftCore
 
 class subinfo(info.infoclass):
     def setTargets( self ):
+        self.svnTargets["master"] = "https://git.videolan.org/git/vlc.git"
         for ver in ["3.0.6"]:
             self.targets[ver] = f"http://get.videolan.org/vlc/{ver}/vlc-{ver}.tar.xz"
             self.targetInstSrc[ver] = f"vlc-{ver}"
@@ -60,4 +61,5 @@ from Package.AutoToolsPackageBase import *
 class Package(AutoToolsPackageBase):
     def __init__( self, **args ):
         AutoToolsPackageBase.__init__( self )
+        self.subinfo.options.configure.autoreconf = False
         self.subinfo.options.configure.args += " --disable-lua --disable-a52 --enable-vpx=no --enable-sparkle=no"
